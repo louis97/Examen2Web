@@ -1,25 +1,27 @@
 import React, { Component } from 'react';
 import * as d3 from "d3";
 
+const url="https://gist.githubusercontent.com/josejbocanegra/f784b189117d214578ac2358eb0a01d7/raw/2b22960c3f203bdf4fac44cc7e3849689218b8c0/data-es.json";
+
 class Visualization extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { data: this.props.data };
+        this.state = { data: [] };
         console.log(this.state.data);
     }
 
     componentDidMount() {
-        this.drawChart();
+        fetch(url).then(res => {
+            return res.json();
+        }).then(res => {
+            this.setState({ data: res }, () => {
+                localStorage.setItem('data', res);
+                this.drawChart();
+            });
+        })
     }
 
-    componentDidUpdate(prevProps) {
-        // Typical usage (don't forget to compare props):
-        if (this.props.data !== prevProps.data) {
-          //this.fetchData(this.props.data);
-          this.setState({ data: this.props.data });
-        }
-      }
 
     drawChart() {
        
@@ -45,7 +47,7 @@ class Visualization extends Component {
             .attr("transform", `translate(${margin.left}, ${margin.top})`)
 
         const y = d3.scaleLinear()
-            .domain([0, 93])
+            .domain([0, 10000000])
             .range([iheight, 0])
 
         const x = d3.scaleBand()
