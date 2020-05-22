@@ -1,0 +1,9 @@
+{
+	"Name":"Nombre" ,
+	"Directed by" : "Dirijido por",
+    "Country" : "Pais",
+    "Budget" : "Precio",
+	"Release" : "Fecha de publicación",
+    "Views":"No. Visitas",
+    "app.hashtag":"#"
+}
